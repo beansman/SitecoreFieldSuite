@@ -121,7 +121,7 @@ namespace Sitecore.SharedSource.FieldSuite.Types
 					return new List<GeneralLinkItem>();
 				}
 
-				TextReader textReader = new StringReader(Value);
+                TextReader textReader = new StringReader(Value.Replace("&amp;", "&").Replace("&", "&amp;"));
 
 				XmlDocument document = new XmlDocument();
 				document.Load(textReader);
@@ -279,9 +279,19 @@ namespace Sitecore.SharedSource.FieldSuite.Types
 		/// <param name="args"></param>
 		protected void SetLinkTextPipeline(ClientPipelineArgs args)
 		{
+
 			if (!args.IsPostBack)
 			{
-				Sitecore.Context.ClientPage.ClientResponse.Input("Enter a name: ", string.Empty);
+
+			    if (!String.IsNullOrEmpty(args.Parameters["link"]))
+			    {
+			        GeneralLinkItem selectedLink2 = XmlUtil.XmlDeserializeFromString<GeneralLinkItem>(args.Parameters["link"].Replace("&amp;", "&").Replace("&", "&amp;"));
+                    Sitecore.Context.ClientPage.ClientResponse.Input("Enter a name: ", selectedLink2.LinkText);
+			    }
+			    else
+			    {
+                    Sitecore.Context.ClientPage.ClientResponse.Input("Enter a name: ", string.Empty);
+			    }
 				args.WaitForPostBack();
 			}
 			else
@@ -291,7 +301,7 @@ namespace Sitecore.SharedSource.FieldSuite.Types
 					return;
 				}
 
-				GeneralLinkItem selectedLink = XmlUtil.XmlDeserializeFromString<GeneralLinkItem>(args.Parameters["link"]);
+                GeneralLinkItem selectedLink = XmlUtil.XmlDeserializeFromString<GeneralLinkItem>(args.Parameters["link"].Replace("&amp;", "&").Replace("&", "&amp;"));
 				if (selectedLink == null)
 				{
 					return;
@@ -303,7 +313,7 @@ namespace Sitecore.SharedSource.FieldSuite.Types
 					GeneralLinkItem linkItem = LinkItems[i];
 					if (linkItem.LinkId == selectedLink.LinkId)
 					{
-						linkItem.LinkText = args.Result;
+                        linkItem.LinkText = args.Result;
 						LinkItems[i] = linkItem;
 
 						//update new field value

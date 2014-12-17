@@ -73,10 +73,10 @@ FieldSuite.Fields.GeneralLinks.InsertEdit = function (sender, evt, commandName, 
 
 	var selectedLink = FieldSuite.Fields.GetSelectedLinkNode(fieldId);
 	if (selectedLink == null || selectedLink == '') {
-		return scForm.postEvent(this, evt, commandName + '(id=' + fieldId + ')')
+	    return scForm.postEvent(this, evt, commandName + '(id=' + fieldId + ')');
 	}
-
-	return scForm.postEvent(sender, evt, commandName + '(id=' + fieldId + ', link=' + selectedLink + ')')
+    selectedLink = selectedLink.replace(/&amp;/g, "&").replace(/&/g, "&amp;");
+    return scForm.postEvent(sender, evt, commandName + '(id=' + fieldId + ', link=' + selectedLink + ')');
 }
 
 // <summary>
