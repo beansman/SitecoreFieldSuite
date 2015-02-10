@@ -285,7 +285,7 @@ namespace Sitecore.SharedSource.FieldSuite.Types
 
 			    if (!String.IsNullOrEmpty(args.Parameters["link"]))
 			    {
-			        GeneralLinkItem selectedLink2 = XmlUtil.XmlDeserializeFromString<GeneralLinkItem>(args.Parameters["link"].Replace("&amp;", "&").Replace("&", "&amp;"));
+			        GeneralLinkItem selectedLink2 = XmlUtil.XmlDeserializeFromString<GeneralLinkItem>(args.Parameters["link"].Replace("&amp;", "&").Replace("&", "&amp;").Replace("%3F", "?").Replace("?", "%3F"));
                     Sitecore.Context.ClientPage.ClientResponse.Input("Enter a name: ", selectedLink2.LinkText);
 			    }
 			    else
@@ -301,7 +301,7 @@ namespace Sitecore.SharedSource.FieldSuite.Types
 					return;
 				}
 
-                GeneralLinkItem selectedLink = XmlUtil.XmlDeserializeFromString<GeneralLinkItem>(args.Parameters["link"].Replace("&amp;", "&").Replace("&", "&amp;"));
+                GeneralLinkItem selectedLink = XmlUtil.XmlDeserializeFromString<GeneralLinkItem>(args.Parameters["link"].Replace("&amp;", "&").Replace("&", "&amp;").Replace("%3F", "?").Replace("?", "%3F"));
 				if (selectedLink == null)
 				{
 					return;

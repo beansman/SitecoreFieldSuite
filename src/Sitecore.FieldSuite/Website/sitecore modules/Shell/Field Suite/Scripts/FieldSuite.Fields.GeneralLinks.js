@@ -75,7 +75,7 @@ FieldSuite.Fields.GeneralLinks.InsertEdit = function (sender, evt, commandName, 
 	if (selectedLink == null || selectedLink == '') {
 	    return scForm.postEvent(this, evt, commandName + '(id=' + fieldId + ')');
 	}
-    selectedLink = selectedLink.replace(/&amp;/g, "&").replace(/&/g, "&amp;");
+	selectedLink = selectedLink.replace(/&amp;/g, "&").replace(/&/g, "&amp;").replace(/%3F/g, "?").replace(/\?/g, "%3F");
     return scForm.postEvent(sender, evt, commandName + '(id=' + fieldId + ', link=' + selectedLink + ')');
 }
 
