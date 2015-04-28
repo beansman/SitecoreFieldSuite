@@ -387,6 +387,7 @@ namespace Sitecore.SharedSource.FieldSuite.Types
 							if (linkItem.LinkId == selectedLink.LinkId)
 							{
 								returnedLink.LinkId = selectedLink.LinkId;
+                                returnedLink.LinkText = selectedLink.LinkText;
 								LinkItems[i] = returnedLink;
 								rawValue = LinkItems.Aggregate(string.Empty, (current, link) => current + XmlUtil.XmlSerializeToString(link));
 								break;
